@@ -1,6 +1,7 @@
 const buttons = document.querySelectorAll("button");
 const body = document.querySelector('body');
-let pageLanguage = 'en';
+
+
 buttons.forEach((butn, ind) => {
   if (ind === 0) {
     butn.addEventListener('click', async () => {
@@ -17,12 +18,14 @@ buttons.forEach((butn, ind) => {
   else {
     addEvent(butn);
   }
+  
   function addEvent(button) {
     button.addEventListener("click", async (diff) => {
       let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       const translateLanguage = button.id,
+        pageLanguage = document.querySelector('#pgLng').innerText,
         languages = pageLanguage + translateLanguage;
-    
+
       chrome.scripting.executeScript({
         target: { tabId: tab.id },
         function: translate, // execute function to transalte 
@@ -35,9 +38,9 @@ buttons.forEach((butn, ind) => {
 // When the button is clicked, inject translate into current page
 
 // The body of this function will be execuetd as a content script inside the current page
-function translate(lang) {
-  const pageLang = lang[0] + lang[1],
-    translateLang = lang[2] + lang[3];
+function translate(languages) {
+  const pageLang = languages[0] + languages[1],
+    translateLang = languages[2] + languages[3];
   const pTags = document.querySelectorAll('p');
 
   pTags.forEach((tag) => {
@@ -51,15 +54,14 @@ function translate(lang) {
 
     currTag.innerText = '';
     wordsArr.forEach((word, ind) => {
-      if (true) {
-        const aTag = document.createElement('a'),
-          beginningOfLink = `https://translate.google.com/?sl=${pageLang}&tl=${translateLang}&text=`,
-          endOfLink = '&op=translate';
-        
-        aTag.href = beginningOfLink + word + endOfLink;
-        aTag.innerText = ` ${word}`;
-        currTag.appendChild(aTag);
-      } 
+      const aTag = document.createElement('a'),
+        beginningOfLink = `https://translate.google.com/?sl=${pageLang}&tl=${translateLang}&text=`,
+        endOfLink = '&op=translate';
+      
+      aTag.href = beginningOfLink + word + endOfLink;
+      aTag.innerText = ` ${word}`;
+      currTag.appendChild(aTag);
+      
       // else {                                             // Depricated span tag functionality (pointless with our change in function)
       //   const spanTag = document.createElement('span');
       //   spanTag.innerText = ` ${word}`;
