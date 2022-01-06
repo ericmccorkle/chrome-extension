@@ -1,6 +1,6 @@
 let page = document.getElementById("buttonDiv");
 let selectedClassName = "current";
-const presetButtonColors = ["#3aa757", "#e8453c", "#f9bb2d", "#4688f1"];
+const presetButtonColors = [["#3aa757", 'English'], ["#e8453c", 'German']];
 
 // Reacts to a button click by marking marking the selected button and saving
 // the selection
@@ -25,8 +25,9 @@ function constructOptions(buttonColors) {
     let currentColor = data.color;
 
     // For each color we were provided…
-    for (let buttonColor of buttonColors) {
+    for (let properties of buttonColors) {
       // …crate a button with that color…
+      const buttonColor = properties[0];
       let button = document.createElement("button");
       button.dataset.color = buttonColor;
       button.style.backgroundColor = buttonColor;
@@ -37,6 +38,9 @@ function constructOptions(buttonColors) {
       }
 
       // …and register a listener for when that button is clicked
+      const buttonName = properties[1];
+      console.log(buttonColors)
+      button.innerText = buttonName;
       button.addEventListener("click", handleButtonClick);
       page.appendChild(button);
     }
