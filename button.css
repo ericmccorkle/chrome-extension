@@ -1,10 +1,12 @@
 button {
   height: 30px;
-  width: 30px;
-  outline: none;
+  width: 75px;
+  outline:auto;
   margin: 10px;
+  padding: 10px;
   border: none;
-  border-radius: 2px;
+  border-radius: 15px;
+  color: black;
 }
 
 button.current {
