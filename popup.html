@@ -1,11 +1,19 @@
+<!-- 
+  this file will be what displays when you click on the chrome extension. 
+  It will display a button and execute the script associated with the button press onclick 
+  In our case, the button should be something like "Translate" and execute our script 
+ -->
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="button.css">
-  </head>
-  <body>
-    <button id="translatePage">Translate</button>
-    <script src="popup.js"></script>
-  </body>
-</html>
+ <!DOCTYPE html>
+ <html>
+   <head>
+     <link rel="stylesheet" href="button.css">
+   </head>
+   <body>
+     <div id="pgLng">en</div>
+     <button id="new">New</button>
+     <button id="de">German</button>
+     <button id="ru">Russian</button>
+     <script src="popup.js"></script>
+   </body>
+ </html>
